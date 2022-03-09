@@ -1,8 +1,7 @@
 import React from "react";
-import ReactDOM from "react-dom";  
-import { Button,Form } from 'react-bootstrap';
-// import AiFillEdit,AiTwotoneDelete} from '@reacticons/bootstrap-icons';
-import {AiFillEdit,AiTwotoneDelete} from 'react-icons/ai';
+import ReactDOM from "react-dom";
+import { Button, Form } from 'react-bootstrap';
+import { AiFillEdit, AiTwotoneDelete } from 'react-icons/ai';
 
 export default class Todoform extends React.Component {
   constructor(props) {
@@ -15,14 +14,15 @@ export default class Todoform extends React.Component {
       }
     };
   }
-  componentDidMount (){
-    ReactDOM.findDOMNode(this.nameInput).focus();
 
-  }
-  componentDidUpdate (){
+  componentDidMount() {
     ReactDOM.findDOMNode(this.nameInput).focus();
   }
-  addTask=(event)=> {
+  componentDidUpdate() {
+    ReactDOM.findDOMNode(this.nameInput).focus();
+  }
+
+  addTask = (event) => {
     event.preventDefault();
     const newItem = this.state.currentTask;
     if (newItem.text !== "") {
@@ -36,10 +36,9 @@ export default class Todoform extends React.Component {
       });
     }
   }
-  editTask=(text, key)=> {
-    //console.log("items:"+this.state.task);
-    const items = this.state.task;
 
+  editTask = (text, key) => {
+    const items = this.state.task;
     this.setState({
       task: items.filter(item => item.key !== key),
       currentTask: {
@@ -47,7 +46,8 @@ export default class Todoform extends React.Component {
       }
     });
   }
-  deleteTask=(key) =>{
+
+  deleteTask = (key) => {
     const currentTaskArray = [...this.state.task];
     const taskAfterDeleted = currentTaskArray.filter(
       deletedTask => deletedTask.key !== key
@@ -56,7 +56,8 @@ export default class Todoform extends React.Component {
       task: taskAfterDeleted
     });
   }
-  handleInput=(event) =>{
+
+  handleInput = (event) => {
     this.setState({
       currentTask: {
         text: event.target.value,
@@ -65,57 +66,56 @@ export default class Todoform extends React.Component {
       }
     });
   }
+
   render() {
     return (
-      <div className="Todo mt-5 text-center">
+      <div className="Todo mt-5 text-center d-flex justify-content-center">
         <div >
-            <div  >
-        <Form id="todo-list" onSubmit={this.addTask}>
-        <Form.Group className="mx-md-5 px-md-5">
-        <div>
-        <input
-            type="text"
-            className="textInput"
-            placeholder="Enter Item"
-            value={this.state.currentTask.text}
-            onChange={this.handleInput} ref={(ref) => this.nameInput = ref}
-          />
-          <Button type="submit" className="mx-2 add">Add</Button>
+          <div className="col-12">
+            <Form id="todo-list" onSubmit={this.addTask}>
+              <Form.Group className="mx-md-5 px-md-5">
+                <div>
+                  <input
+                    type="text"
+                    className="textInput"
+                    placeholder="Enter Item"
+                    value={this.state.currentTask.text}
+                    onChange={this.handleInput} ref={(ref) => this.nameInput = ref}/>
+                  <Button type="submit" className="mx-2 add">Add</Button>
+                </div>
+              </Form.Group>
+            </Form>
+            
+            <div className="mt-3 rounded showcomponent text-end">
+              <Todolist task={this.state.task} deleteTask={this.deleteTask} editTask={this.editTask} />
+            </div>
           </div>
-
-          </Form.Group>
-        </Form>
         </div>
-        <Todolist task={this.state.task} deleteTask={this.deleteTask} editTask={this.editTask}/>
-        </div>
-       
       </div>
     );
   }
 }
 
- class Todolist extends React.Component {
+class Todolist extends React.Component {
   render() {
     return (
       <div>
-           {this.props.task.map(oneTask => (
+        {this.props.task.map(oneTask => (
           <div key={oneTask.key} >
             <div className="container">
-              <div>
+              <div className="p-1">
                 {oneTask.text}
                 <div className="d-inline">
-                  <button
+                  <a rol="button"
                     className="w3-button delete"
-                    onClick={() => this.props.deleteTask(oneTask.key)}
-                  >
-                    <AiTwotoneDelete/>
-                  </button>
-                  <button
+                    onClick={() => this.props.deleteTask(oneTask.key)}>
+                    <AiTwotoneDelete />
+                  </a>
+                  <a rol="button"
                     className="w3-button edit"
-                    onClick={() => this.props.editTask(oneTask.text, oneTask.key)}
-                  >
-                    <AiTwotoneDelete/>
-                  </button>
+                    onClick={() => this.props.editTask(oneTask.text, oneTask.key)}>
+                    <AiFillEdit />
+                  </a>
                 </div>
               </div>
             </div>

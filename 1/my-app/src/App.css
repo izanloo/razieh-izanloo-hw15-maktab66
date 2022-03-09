@@ -1,6 +1,5 @@
 body {
-  font-family: 'Muli', Sans-serif;
-  background-image: url('http://orig00.deviantart.net/acb6/f/2013/303/7/6/gif___running_through_the_rain_by_turst67-d6scius.gif');
+    background-image: url('http://orig00.deviantart.net/acb6/f/2013/303/7/6/gif___running_through_the_rain_by_turst67-d6scius.gif');
   background-size: cover;
 }
 .textInput{
@@ -13,6 +12,13 @@ padding: 8px;
 }
 .App {
   text-align: center;
+}
+.showcomponent{
+  background: rgba(255, 7, 8, 0.8);
+}
+.appComponent{
+  font-family: 'cairo;';
+
 }
 
 .App-logo {
